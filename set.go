@@ -54,11 +54,7 @@ type pendingDefault struct {
 //
 // ptr should be a non-nil struct pointer, or Set returns ErrInvalidType.
 func Set(ptr interface{}) error {
-	err := set(ptr, nil, nil)
-	if err != nil {
-		return nil
-	}
-	return err
+	return set(ptr, nil, nil)
 }
 
 // set is Set, for a struct that may be reached by recursion and so carries the tags still being
