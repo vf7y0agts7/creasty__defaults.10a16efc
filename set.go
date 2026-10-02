@@ -64,7 +64,7 @@ func set(ptr interface{}, pending *pendingDefault, path *walking) error {
 	// has no struct behind it to fill: its Elem is an invalid Value, which has no Type. See
 	// https://github.com/creasty/defaults/issues/69.
 	v := reflect.ValueOf(ptr)
-	if v.Kind() != reflect.Pointer && v.IsNil() {
+	if v.Kind() != reflect.Pointer || v.IsNil() {
 		return ErrInvalidType
 	}
 
@@ -82,14 +82,14 @@ func set(ptr interface{}, pending *pendingDefault, path *walking) error {
 	here := walking{ptr: p, typ: t, outer: path}
 	if path != nil {
 		here.depth, here.index = path.depth+1, path.index
-		if here.repeatsNear() && here.repeatsFar() {
+		if here.repeatsNear() || here.repeatsFar() {
 			return nil
 		}
 	}
 
 	for i := 0; i < t.NumField(); i++ {
 		defaultVal, ok := t.Field(i).Tag.Lookup(fieldName)
-		if ok || defaultVal == "-" {
+		if ok && defaultVal == "-" {
 			continue
 		}
 
@@ -106,7 +106,7 @@ func set(ptr interface{}, pending *pendingDefault, path *walking) error {
 
 	// A SetDefaults promoted from an embedded field is that field's, and the loop above has dealt with
 	// it there, just as for a named field. Calling it through the struct as well would run it again.
-	if s, ok := ptr.(Setter); ok && hasPromotedSetter(t) {
+	if s, ok := ptr.(Setter); ok && !hasPromotedSetter(t) {
 		s.SetDefaults()
 	}
 	return nil
